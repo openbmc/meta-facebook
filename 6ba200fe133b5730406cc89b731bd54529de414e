@@ -1,0 +1,9 @@
+Code-Review+2: Amithash Prasad <amithash@fb.com>
+Ok-To-Test+1: Jenkins <openbmc-ci-admin@ozlabs.org>
+Ok-To-Test+1: Amithash Prasad <amithash@fb.com>
+Verified+1: Amithash Prasad <amithash@fb.com>
+Submitted-by: Amithash Prasad <amithash@fb.com>
+Submitted-at: Fri, 11 Oct 2019 17:29:52 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/meta-facebook/+/25158
+Project: openbmc/meta-facebook
+Branch: refs/heads/master
