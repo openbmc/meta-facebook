@@ -16,126 +16,126 @@ index 2ac1ca4..c3ce077 100644
 @@ -302,6 +302,156 @@ TIME_TABLE_DDR4_1600:
      ldr   r2, =0x00000800
      .endm
- 
+
 +    .macro console_bmc
 +    ldr r0, =0x1e780024
-+ldr r1, [r0]
-+orr r1, r1, #0xF
-+str r1, [r0]
++    ldr r1, [r0]
++    orr r1, r1, #0xF
++    str r1, [r0]
 +
-+ldr r0, =0x1e780020
-+ldr r1, [r0]
-+and r1, r1, #0xFFFFFFF0
-+orr r1, r1, #0xC
-+str r1, [r0]
-+.endm
++    ldr r0, =0x1e780020
++    ldr r1, [r0]
++    and r1, r1, #0xFFFFFFF0
++    orr r1, r1, #0xC
++    str r1, [r0]
++    .endm
 +
-+.macro console_sel
++    .macro console_sel
 +
-+  // Disable SoL UARTs[1-4]
-+  ldr r0, =0x1e6e2080
-+  ldr r1, [r0]
-+  ldr r2, =0xBFBFFFFF
-+  and r1, r1, r2
-+  str r1, [r0]
++    // Disable SoL UARTs[1-4]
++    ldr r0, =0x1e6e2080
++    ldr r1, [r0]
++    ldr r2, =0xBFBFFFFF
++    and r1, r1, r2
++    str r1, [r0]
 +
-+  ldr r0, =0x1e6e2084
-+  ldr r1, [r0]
-+  and r1, r1, r2
-+  str r1, [r0]
-+  // Enable GPIOE[0-3] Tolerant
-+  ldr r0, =0x1e78003c
-+  ldr r1, [r0]
-+  orr r1, r1, #0xF
-+  str r1, [r0]
++    ldr r0, =0x1e6e2084
++    ldr r1, [r0]
++    and r1, r1, r2
++    str r1, [r0]
++    // Enable GPIOE[0-3] Tolerant
++    ldr r0, =0x1e78003c
++    ldr r1, [r0]
++    orr r1, r1, #0xF
++    str r1, [r0]
 +
-+  // Read debug card present
-+  ldr r2, =0x1e780080
-+  ldr r0, [r2]
-+  and r0, r0, #0x00000800
-+  ldr r1, =0x0800
-+  cmp r0, r1
-+  bne dbg_card_pres\@
-+  console_bmc
-+  b case_end\@
++    // Read debug card present
++    ldr r2, =0x1e780080
++    ldr r0, [r2]
++    and r0, r0, #0x00000800
++    ldr r1, =0x0800
++    cmp r0, r1
++    bne dbg_card_pres\@
++    console_bmc
++    b case_end\@
 +
 +dbg_card_pres\@:
-+  // Read key position
-+  ldr r2, =0x1e7801e0
-+  ldr r0, [r2]
-+  bic r1, r0, #0xFF0FFFFF
-+  mov r0, r1, lsr #20
-+  //Test for position#1
-+  ldr r1, =0x00
-+  cmp r0, r1
-+  bne case_pos2\@
-+ console_bmc
-+  b case_end\@
++    // Read key position
++    ldr r2, =0x1e7801e0
++    ldr r0, [r2]
++    bic r1, r0, #0xFF0FFFFF
++    mov r0, r1, lsr #20
++    //Test for position#1
++    ldr r1, =0x00
++    cmp r0, r1
++    bne case_pos2\@
++    console_bmc
++    b case_end\@
 +case_pos2\@:
-+  //Test for position#2
-+  ldr r1, =0x01
-+  cmp r0, r1
-+  bne case_pos3\@
-+ console_bmc
-+  b case_end\@
++    //Test for position#2
++    ldr r1, =0x01
++    cmp r0, r1
++    bne case_pos3\@
++    console_bmc
++    b case_end\@
 +case_pos3\@:
-+ //Test for position#3
-+  ldr r1, =0x02
-+  cmp r0, r1
-+  bne case_pos4\@
-+  console_bmc
-+  b case_end\@
++    //Test for position#3
++    ldr r1, =0x02
++    cmp r0, r1
++    bne case_pos4\@
++    console_bmc
++    b case_end\@
 +case_pos4\@:
-+//Test for position#4
-+  ldr r1, =0x03
-+  cmp r0, r1
-+  bne case_pos5\@
-+  console_bmc
-+  b case_end\@
++    //Test for position#4
++    ldr r1, =0x03
++    cmp r0, r1
++    bne case_pos5\@
++    console_bmc
++    b case_end\@
 +case_pos5\@:
-+  //Test for position#5
-+  ldr r1, =0x04
-+  cmp r0, r1
-+  bne case_pos6\@
-+  console_bmc
-+  b case_end\@
++    //Test for position#5
++    ldr r1, =0x04
++    cmp r0, r1
++    bne case_pos6\@
++    console_bmc
++    b case_end\@
 +case_pos6\@:
-+  //Test for position#6
-+  ldr r1, =0x05
-+  cmp r0, r1
-+  bne case_pos7\@
-+  console_bmc
-+  b case_end\@
++    //Test for position#6
++    ldr r1, =0x05
++    cmp r0, r1
++    bne case_pos7\@
++    console_bmc
++    b case_end\@
 +case_pos7\@:
-+ //Test for position#7
-+   ldr r1, =0x06
-+   cmp r0, r1
-+   bne case_pos8\@
-+   console_bmc
-+   b case_end\@
++    //Test for position#7
++    ldr r1, =0x06
++    cmp r0, r1
++    bne case_pos8\@
++    console_bmc
++    b case_end\@
 +case_pos8\@:
-+  //Test for position#8
-+   ldr r1, =0x07
-+   cmp r0, r1
-+   bne case_pos9\@
-+   console_bmc
-+   b case_end\@
++   //Test for position#8
++    ldr r1, =0x07
++    cmp r0, r1
++    bne case_pos9\@
++    console_bmc
++    b case_end\@
 +case_pos9\@:
 +    //Test for position#9
-+   ldr r1, =0x08
-+   cmp r0, r1
-+   bne case_pos10\@
-+   console_bmc
-+   b case_end\@
++    ldr r1, =0x08
++    cmp r0, r1
++    bne case_pos10\@
++    console_bmc
++    b case_end\@
 +case_pos10\@:
-+   //Test for position#10
-+   ldr r1, =0x09
-+   cmp r0, r1
-+   bne case_end\@
-+   console_bmc
-+   b case_end\@
++    //Test for position#10
++    ldr r1, =0x09
++    cmp r0, r1
++    bne case_end\@
++    console_bmc
++    b case_end\@
 +case_end\@:
-+.endm
++    .endm
 +
 +    .macro uart_console_setup
 +    console_sel
@@ -186,7 +186,7 @@ index 2ac1ca4..c3ce077 100644
 +    str r1, [r0]
 +    mov r1, #0x0A                                @ '\n'
 +    str r1, [r0]
-+    mov r1, #0x54                                @ 'S'
++    mov r1, #0x53                                @ 'S'
 +    str r1, [r0]
 +    mov r1, #0x50                                @ 'P'
 +    str r1, [r0]
@@ -210,7 +210,7 @@ index 2ac1ca4..c3ce077 100644
 @@ -793,7 +973,9 @@ wait_ddr_reset:
      clear_delay_timer
      /* end delay 10ms */
- 
+
 -/* Debug - UART console message */
 +    uart_console_setup
 +
@@ -221,7 +221,7 @@ index 2ac1ca4..c3ce077 100644
 @@ -806,35 +988,6 @@ wait_ddr_reset:
      str   r1, [r0]
  #endif
- 
+
 -    ldr   r0, =0x1e78400c
 -    mov   r1, #0x83
 -    str   r1, [r0]
@@ -256,4 +256,3 @@ index 2ac1ca4..c3ce077 100644
      str   r1, [r0]
 -- 
 2.7.4
-
