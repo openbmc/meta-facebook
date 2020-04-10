@@ -1,7 +1,5 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
 
-OBMC_CONSOLE_HOST_TTY = "ttyS2"
-
 SRC_URI_append_yosemitev2 = " file://client.2200.conf \
                               file://client.2201.conf \
                               file://client.2202.conf \
@@ -15,6 +13,8 @@ SRC_URI_append_yosemitev2 = " file://client.2200.conf \
 SRC_URI_remove_yosemitev2 = "[file://${BPN}.conf]file://${BPN}.conf"
 
 REGISTERED_SERVICES_${PN}_append_yosemitev2 = " obmc_console_guests:tcp:2201:"
+
+SYSTEMD_SERVICE_${PN}_append_tiogapass = " obmc-console@ttyS2.service "
 
 SYSTEMD_SERVICE_${PN}_append_yosemitev2 = " obmc-console@ttyS0.service \
                                             obmc-console@ttyS1.service \
@@ -32,6 +32,16 @@ FILES_${PN}_remove_yosemitev2 = "/lib/systemd/system/obmc-console-ssh@.service.d
 
 EXTRA_OECONF_append_yosemitev2 = " --enable-concurrent-servers"
 
+do_install_append_tiogapass() {
+
+        # Install configuration for the servers and clients. Keep commandline
+        # compatibility with previous configurations by defaulting to not
+        # specifying a socket-id for VUART0/2200
+        install -m 0755 -d ${D}${sysconfdir}/${BPN}
+
+        # Link the custom configuration to the required location
+        ln -sr ${D}${sysconfdir}/${BPN}.conf ${D}${sysconfdir}/${BPN}/server.ttyS2.conf
+}
 
 do_install_append_yosemitev2() {
 
