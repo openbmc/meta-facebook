@@ -19,4 +19,8 @@ set_gpio_active_low $((${GPIO_BASE} + 144 +1)) low
 # FP_PECI_MUX, active low
 set_gpio_active_low $((${GPIO_BASE} + 212)) high
 
+# Set up uart routing for SoL
+echo -n "uart3" > /sys/bus/platform/devices/1e78909c.uart_routing/uart2
+echo -n "uart2" > /sys/bus/platform/devices/1e78909c.uart_routing/uart3
+
 exit 0;
