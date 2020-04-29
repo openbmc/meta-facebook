@@ -1,0 +1,28 @@
+From 73dfaa3c515be3415622276e4c6f4f0838fbf5d0 Mon Sep 17 00:00:00 2001
+From: Vijay Khemka <vijaykhemka@fb.com>
+Date: Fri, 11 Oct 2019 12:54:56 -0700
+Subject: [PATCH 4/6] Enable uart routing
+
+Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
+index 6b88c7f26bf7..f85b0b40989e 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
+@@ -185,6 +185,10 @@
+ 	/*AC0-AC7*/	"","","","","","","","";
+ };
+ 
++&uart_routing {
++	status = "okay";
++};
++
+ &mac0 {
+ 	status = "okay";
+ 
+-- 
+2.24.1
+

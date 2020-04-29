@@ -1,2 +1,6 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/linux-aspeed:"
 SRC_URI += "file://tiogapass.cfg"
+SRC_URI += "file://0003-driver-soc-aspeed-Add-UART-routing-driver.patch"
+SRC_URI += "file://0004-Enable-uart-routing.patch"
+SRC_URI += "file://0005-ARM-dts-aspeed-Add-peci-for-Facebook.patch"
+SRC_URI += "file://0006-Remove-vuart.patch"

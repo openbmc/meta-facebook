@@ -1,0 +1,30 @@
+From bc44748baf17753b1768c5cfd2b2b6556b0aade9 Mon Sep 17 00:00:00 2001
+From: Vijay Khemka <vijaykhemka@fb.com>
+Date: Mon, 11 Feb 2019 16:16:55 -0800
+Subject: [PATCH 5/6] ARM: dts: aspeed: Add peci for Facebook
+
+Added peci interface for cpu and host temperature sensors
+
+Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
+index f85b0b40989e..45f2d1205c26 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
+@@ -87,6 +87,10 @@
+ 	status = "okay";
+ };
+ 
++&peci0 {
++	status = "okay";
++};
++
+ &uart1 {
+ 	// Host Console
+ 	status = "okay";
+-- 
+2.24.1
+

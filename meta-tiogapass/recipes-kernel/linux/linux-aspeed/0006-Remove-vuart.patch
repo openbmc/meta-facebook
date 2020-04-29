@@ -1,0 +1,29 @@
+From 121b611838c5f5b93f97a94810155b06a748b2a8 Mon Sep 17 00:00:00 2001
+From: Vijay Khemka <vijaykhemka@fb.com>
+Date: Fri, 13 Dec 2019 13:02:19 -0800
+Subject: [PATCH 6/6] Remove vuart
+
+Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+---
+ arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts | 5 -----
+ 1 file changed, 5 deletions(-)
+
+diff --git a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
+index 45f2d1205c26..4a12cf369c4a 100644
+--- a/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
++++ b/arch/arm/boot/dts/aspeed-bmc-facebook-tiogapass.dts
+@@ -82,11 +82,6 @@
+ 	status = "okay";
+ };
+ 
+-&vuart {
+-	// VUART Host Console
+-	status = "okay";
+-};
+-
+ &peci0 {
+ 	status = "okay";
+ };
+-- 
+2.24.1
+
