@@ -1,0 +1,28 @@
+From f0522aedb197ed3b9c425d696cd3a57b04c93c1e Mon Sep 17 00:00:00 2001
+From: Vijay Khemka <vijaykhemka@fb.com>
+Date: Fri, 9 Oct 2020 17:34:01 -0700
+Subject: [PATCH] Temp fix for sdbusplus build issue
+
+Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+---
+ CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2b7c4b6..fdccfb2 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -2,8 +2,8 @@ cmake_minimum_required (VERSION 3.5 FATAL_ERROR)
+ project (node-manager-proxy CXX)
+ set (CMAKE_CXX_STANDARD 17)
+ set (CMAKE_CXX_STANDARD_REQUIRED ON)
+-set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
+-set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
++#set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-rtti")
++#set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fno-rtti")
+ 
+ include_directories (${CMAKE_CURRENT_SOURCE_DIR})
+ find_package (Boost REQUIRED)
+-- 
+2.24.1
+

@@ -1,0 +1,234 @@
+From c421af370674e9698cd8cc7ae4791de5e9d25526 Mon Sep 17 00:00:00 2001
+From: Vijay Khemka <vijaykhemka@fb.com>
+Date: Fri, 27 Mar 2020 13:06:38 -0700
+Subject: [PATCH v3] Add ME health status property
+
+Added ME health status property in ME health dbus interface. Also log transition
+of status if any. User can read CurrentStatus under SetMeHealth interface of
+/xyz/openbmc_project/status/me
+
+Tested: Verified this with following command
+busctl get-property xyz.openbmc_project.NodeManagerProxy \
+/xyz/openbmc_project/status/me xyz.openbmc_project.SetHealth CurrentStatus
+s "Operational"
+
+Signed-off-by: Vijay Khemka <vijaykhemka@fb.com>
+---
+ NodeManagerProxy.cpp |  26 +++++++++-
+ NodeManagerProxy.hpp | 114 ++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 136 insertions(+), 4 deletions(-)
+
+diff --git a/NodeManagerProxy.cpp b/NodeManagerProxy.cpp
+index d9fb760..14945a3 100644
+--- a/NodeManagerProxy.cpp
++++ b/NodeManagerProxy.cpp
+@@ -178,6 +178,24 @@ void createAssociations()
+         "/xyz/openbmc_project/inventory/system", scanDepth, confPath);
+ }
+ 
++void updateMeStatus(HealthData &healthDataObj)
++{
++    readingsSchedulingTimer.expires_after(
++        std::chrono::seconds(readingsInterval));
++    readingsSchedulingTimer.async_wait(
++        [&healthDataObj](const boost::system::error_code &ec) {
++            if (ec)
++            {
++                phosphor::logging::log<phosphor::logging::level::ERR>(
++                    "updateMeStatus: timer error");
++                return;
++            }
++
++            healthDataObj.updateStatus();
++            updateMeStatus(healthDataObj);
++        });
++}
++
+ /**
+  * @brief Main
+  */
+@@ -197,17 +215,21 @@ int main(int argc, char *argv[])
+                                        std::vector<Association>{});
+     statusInterface->initialize();
+ 
+-    HealthData healthData(statusInterface);
+-
+     std::shared_ptr<sdbusplus::asio::dbus_interface> healthInterface =
+         server.add_interface(meStatusPath, "xyz.openbmc_project.SetHealth");
++
++    HealthData healthData(conn, healthInterface, statusInterface);
++
+     healthInterface->register_method(
+         "SetHealth",
+         [&healthData](const std::string &type, const std::string &level) {
+             healthData.set(type, level);
+         });
++
++    healthInterface->register_property("CurrentStatus", healthData.meStatus);
+     healthInterface->initialize();
+ 
++    updateMeStatus(healthData);
+     sdbusplus::bus::match::match configurationMatch(
+         static_cast<sdbusplus::bus::bus &>(*conn),
+         "type='signal',member='PropertiesChanged',"
+diff --git a/NodeManagerProxy.hpp b/NodeManagerProxy.hpp
+index 8ca0688..c71adf4 100644
+--- a/NodeManagerProxy.hpp
++++ b/NodeManagerProxy.hpp
+@@ -45,6 +45,14 @@ constexpr const char *sensorName = "Node_Manager_Sensor";
+ constexpr const char *associationInterface =
+     "xyz.openbmc_project.Association.Definitions";
+ 
++// ME Self test types
++constexpr const char *meNotAvailable = "MeNotAvailable";
++constexpr const char *meTestFail = "NonOperational";
++constexpr const char *meTestPass = "Operational";
++
++constexpr uint8_t getSTRespMinSize = 2;
++constexpr uint8_t selfTestPass = 0x55;
++
+ // this currently can be anything as it's only used to set the LED, might be
+ // good later to change it for redfish, but I'm not sure to what today
+ constexpr const char *meStatusPath = "/xyz/openbmc_project/status/me";
+@@ -140,6 +148,11 @@ constexpr uint8_t ipmiGetDevIdNetFn = 0x6;
+ constexpr uint8_t ipmiGetDevIdLun = 0;
+ constexpr uint8_t ipmiGetDevIdCmd = 0x1;
+ 
++/**
++ * @brief Get self test result defines
++ */
++constexpr uint8_t ipmiGetSelfTestCmd = 0x4;
++
+ /**
+  * @brief Part of Get Device ID Command Response Payload
+  */
+@@ -736,9 +749,13 @@ class GlobalPowerHwProtection : public getNmStatistics
+ 
+ struct HealthData
+ {
+-    HealthData(std::shared_ptr<sdbusplus::asio::dbus_interface> interface) :
+-        interface(interface)
++    HealthData(std::shared_ptr<sdbusplus::asio::connection> conn,
++               std::shared_ptr<sdbusplus::asio::dbus_interface> healthInterface,
++               std::shared_ptr<sdbusplus::asio::dbus_interface> interface) :
++        conn(conn),
++        healthInterface(healthInterface), interface(interface)
+     {
++        meStatus = getMeSelfTest();
+     }
+ 
+     void set(const std::string &type, const std::string &level)
+@@ -787,6 +804,96 @@ struct HealthData
+         interface->set_property("Associations", association);
+     }
+ 
++    std::string getMeSelfTest()
++    {
++        std::vector<uint8_t> dataToSend;
++
++        IpmbDbusRspType ipmbResponse;
++        int sendStatus =
++            ipmbSendRequest(*conn, ipmbResponse, dataToSend, ipmiGetDevIdNetFn,
++                            ipmiGetDevIdLun, ipmiGetSelfTestCmd);
++
++        if (sendStatus)
++        {
++            return std::string(meNotAvailable);
++        }
++
++        const auto &[status, netfn, lun, cmd, cc, dataReceived] = ipmbResponse;
++
++        if (status)
++        {
++            phosphor::logging::log<phosphor::logging::level::ERR>(
++                "getSelfTest: ipmb non-zero response status ",
++                phosphor::logging::entry("%d", status));
++            return std::string(meNotAvailable);
++        }
++        if (cc)
++        {
++            phosphor::logging::log<phosphor::logging::level::WARNING>(
++                "getSelfTest: non-zero completion code ",
++                phosphor::logging::entry("%d", cc));
++            return std::string(meNotAvailable);
++        }
++        if (dataReceived.size() < getSTRespMinSize)
++        {
++            phosphor::logging::log<phosphor::logging::level::WARNING>(
++                "getSelfTest: response size does not match expected value");
++            return std::string(meNotAvailable);
++        }
++
++        if (dataReceived[0] == selfTestPass)
++        {
++            return std::string(meTestPass);
++        }
++        else
++        {
++            return std::string(meTestFail);
++        }
++    }
++
++    void logMeStatusTransition(std::string &newStatus)
++    {
++        std::string msg = "Status transition: " + meStatus + "->" + newStatus;
++        phosphor::logging::log<phosphor::logging::level::INFO>(msg.c_str());
++
++        if (newStatus == meNotAvailable)
++        {
++            phosphor::logging::log<phosphor::logging::level::WARNING>(
++                "ASSERT: ME Status - Controller Unavailable");
++        }
++        else if (newStatus == meTestFail)
++        {
++            phosphor::logging::log<phosphor::logging::level::WARNING>(
++                "ASSERT: ME Status - Controller Access Degraded or "
++                "Unavailable");
++        }
++        else
++        {
++            if (meStatus == meNotAvailable)
++            {
++                phosphor::logging::log<phosphor::logging::level::WARNING>(
++                    "DEASSERT: ME Status - Controller Unavailable");
++            }
++            else
++            {
++                phosphor::logging::log<phosphor::logging::level::WARNING>(
++                    "DEASSERT: ME Status - Controller Access Degraded or "
++                    "Unavailable");
++            }
++        }
++    }
++
++    void updateStatus()
++    {
++        std::string newStatus = getMeSelfTest();
++        if (meStatus != newStatus)
++        {
++            logMeStatusTransition(newStatus);
++            meStatus = newStatus;
++            healthInterface->set_property("CurrentStatus", newStatus);
++        }
++    }
++
+     void clear()
+     {
+         fatal.clear();
+@@ -795,10 +902,13 @@ struct HealthData
+         interface->set_property("Associations", std::vector<Association>{});
+     }
+ 
++    std::shared_ptr<sdbusplus::asio::dbus_interface> healthInterface;
+     std::shared_ptr<sdbusplus::asio::dbus_interface> interface;
++    std::shared_ptr<sdbusplus::asio::connection> conn;
+     boost::container::flat_set<std::string> fatal;
+     boost::container::flat_set<std::string> critical;
+     boost::container::flat_set<std::string> warning;
++    std::string meStatus;
+ };
+ 
+ #endif
+-- 
+2.24.1
+
