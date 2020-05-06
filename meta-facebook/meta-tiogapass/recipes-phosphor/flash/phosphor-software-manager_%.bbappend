@@ -1,7 +1,7 @@
 FILESEXTRAPATHS_prepend_tiogapass := "${THISDIR}/${PN}:"
 SRC_URI += "file://bios-update.sh"
 
-PACKAGECONFIG_append = " flash_bios"
+EXTRA_OEMESON += "-Dhost-bios-upgrade=enabled"
 RDEPENDS_${PN} += "bash"
 
 do_install_append_tiogapass() {
