@@ -1,0 +1,12 @@
+{
+  "node": 1,
+  "power-out": "POWER_OUT1",
+  "reset-out": "RESET_OUT1",
+  "power-ok": "PS_PWROK1",
+  "post-complete": "",
+  "nmi-out": "",
+  "sio-pwrgd": "",
+  "sio-onctl": "", 
+  "sio-s5": ""
+}
+
