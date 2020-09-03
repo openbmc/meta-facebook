@@ -1,0 +1,10 @@
+[Unit]
+Description=IPMI Snoop Daemon
+After=systemd-modules-load.service
+
+[Service]
+Restart=always
+ExecStart=/usr/bin/snoopd -i "4"
+
+[Install]
+WantedBy=multi-user.target
