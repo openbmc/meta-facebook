@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "99de0687_e2cfcc8d",
+        "filename": "recipes-phosphor/postcode/phosphor-host-postd/yosemitev2/lpcsnoop.service",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2020-09-04T18:44:08Z",
+      "side": 1,
+      "message": "There is already an \u0027lpcsnoop.service\u0027 provided by the repository itself.  Why can\u0027t we have the host-postd repository supply the appropriate service file based on a compile-option?",
+      "revId": "860dfb48a19315c6ad07ca62021bf7ee09eb2ba3",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
