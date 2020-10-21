@@ -1,0 +1,7 @@
+[Unit]
+Description=get time from host and set bmc time
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/sbin/SetTimeBmc.sh
