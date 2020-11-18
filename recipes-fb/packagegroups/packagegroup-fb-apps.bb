@@ -52,4 +52,7 @@ RDEPENDS_${PN}-system = " \
         ipmitool \
         phosphor-post-code-manager \
         phosphor-host-postd \
+        obmc-phosphor-buttons \
+        obmc-phosphor-buttons-handler \
+        obmc-phosphor-buttons-signals \
         "
