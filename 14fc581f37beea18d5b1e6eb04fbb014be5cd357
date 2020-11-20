@@ -1,0 +1,8 @@
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Verified+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Patrick Williams <patrick@stwcx.xyz>
+Submitted-by: Patrick Williams <patrick@stwcx.xyz>
+Submitted-at: Fri, 20 Nov 2020 17:18:32 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/meta-facebook/+/38459
+Project: openbmc/meta-facebook
+Branch: refs/heads/master
