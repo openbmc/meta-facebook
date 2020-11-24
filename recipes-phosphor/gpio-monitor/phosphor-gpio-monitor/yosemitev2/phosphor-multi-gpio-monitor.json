@@ -1,0 +1,38 @@
+[
+  {
+    "Name" : "PowerButton",
+    "LineName": "HAND_SW1",
+    "GpioNum": 212,
+    "ChipId": "gpiochip0",
+    "EventMon": "BOTH",
+    "Continue": true,
+    "Target": "hand_switch_position.service"
+  },
+  {
+    "Name" : "PowerButton",
+    "LineName": "HAND_SW2",
+    "GpioNum": 213,
+    "ChipId": "gpiochip0",
+    "EventMon": "BOTH",
+    "Continue": true,
+    "Target": "hand_switch_position.service"
+  },
+  {
+    "Name" : "PowerButton",
+    "LineName": "HAND_SW3",
+    "GpioNum": 214,
+    "ChipId": "gpiochip0",
+    "EventMon": "BOTH",
+    "Continue": true,
+    "Target": "hand_switch_position.service"
+  },
+  {
+    "Name" : "PowerButton",
+    "LineName": "HAND_SW4",
+    "GpioNum": 215,
+    "ChipId": "gpiochip0",
+    "EventMon": "BOTH",
+    "Continue": true,
+    "Target": "hand_switch_position.service"
+  }
+]
