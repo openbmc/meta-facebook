@@ -52,4 +52,9 @@ RDEPENDS_${PN}-system = " \
         ipmitool \
         phosphor-post-code-manager \
         phosphor-host-postd \
+        virtual/obmc-gpio-monitor \
+        phosphor-gpio-monitor \
         "
+
+RDEPENDS_${PN}-gpio_remove_tiogapass = "phosphor-gpio-monitor"
+RDEPENDS_${PN}-gpiomonitor_remove_tiogapass = "virtual/obmc-gpio-monitor"
