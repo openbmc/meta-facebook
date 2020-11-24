@@ -1,0 +1,11 @@
+[Unit]
+Description=Hand Switch Position console Service
+After=phosphor-button-handler.service xyz.openbmc_project.Chassis.Buttons.service
+
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/env hand_switch_position_sol.sh
+
+[Install]
+WantedBy=multi-user.target
