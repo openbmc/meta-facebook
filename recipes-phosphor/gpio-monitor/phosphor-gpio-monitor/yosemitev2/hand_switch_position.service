@@ -1,0 +1,11 @@
+[Unit]
+Description=Hand Switch Position Service
+StartLimitIntervalSec=0
+After=phosphor-multi-gpio-monitor.service phosphor-button-handler.service xyz.openbmc_project.Chassis.Buttons.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/env hand_switch_position.sh
+
+[Install]
+WantedBy=multi-user.target
