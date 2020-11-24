@@ -27,8 +27,13 @@ RDEPENDS_${PN}-chassis = " \
         x86-power-control \
         "
 
+
 SUMMARY_${PN}-extras_tiogapass = "Extra features for tiogapass"
 RDEPENDS_${PN}-extras_tiogapass = "phosphor-nvme"
+
+SUMMARY_${PN}-extras_yosemitev2 = "Extra features for yosemitev2"
+RDEPENDS_${PN}-extras_yosemitev2 = "phosphor-gpio-monitor"
+RDEPENDS_${PN}-extras_yosemitev2 = "virtual/obmc-gpio-monitor"
 
 SUMMARY_${PN}-fans = "Facebook Fans"
 RDEPENDS_${PN}-fans = " \
