@@ -17,6 +17,14 @@ inherit cmake obmc-phosphor-ipmiprovider-symlink
 EXTRA_OECMAKE="-DENABLE_TEST=0 -DYOCTO=1"
 EXTRA_OECMAKE_append_yosemitev2 = " -DBIC=1"
 
+def host_instances(d):
+    if(d.getVar('OBMC_HOST_INSTANCES') == '0'):
+      return "0"
+    else:
+      return  max((d.getVar('OBMC_HOST_INSTANCES') or "").split())
+
+EXTRA_OECMAKE_append_yosemitev2 = " -DHOST_INSTANCES='${@host_instances(d)}'"
+
 LIBRARY_NAMES = "libzfboemcmds.so"
 
 HOSTIPMI_PROVIDER_LIBRARY += "${LIBRARY_NAMES}"
