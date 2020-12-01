@@ -1,0 +1,7 @@
+[Unit]
+Description=Power on the slots when NIC sensor values goes low
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/sbin/powerOnSlot.sh
