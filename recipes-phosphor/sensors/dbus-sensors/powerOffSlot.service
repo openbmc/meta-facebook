@@ -1,0 +1,7 @@
+[Unit]
+Description=Power off the slots when fan fails.
+
+[Service]
+Type=oneshot
+RemainAfterExit=no
+ExecStart=/usr/sbin/powerOffSlot.sh
