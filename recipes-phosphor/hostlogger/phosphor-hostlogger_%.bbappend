@@ -1,12 +1,9 @@
 FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}/${MACHINE}:"
 
-SRC_URI += "file://*.conf"
-
-SYSTEMD_SERVICE_${PN} += "hostlogger@ttyS2.service"
-
-SYSTEMD_SERVICE_${PN}_append_yosemitev2 += "hostlogger@ttyS0.service"
-SYSTEMD_SERVICE_${PN}_append_yosemitev2 += "hostlogger@ttyS1.service"
-SYSTEMD_SERVICE_${PN}_append_yosemitev2 += "hostlogger@ttyS3.service"
+SRC_URI += "file://ttyS2.conf"
+SRC_URI_append_yosemitev2 += "file://ttyS0.conf"
+SRC_URI_append_yosemitev2 += "file://ttyS1.conf"
+SRC_URI_append_yosemitev2 += "file://ttyS3.conf"
 
 do_install_append() {
 
