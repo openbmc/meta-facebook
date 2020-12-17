@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f34325c4_b5e136ed",
+        "filename": "recipes-phosphor/hostlogger/phosphor-hostlogger_%.bbappend",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000271
+      },
+      "writtenOn": "2020-12-17T20:39:39Z",
+      "side": 1,
+      "message": "This is not required as yocto picks up machine automatically.",
+      "range": {
+        "startLine": 1,
+        "startChar": 45,
+        "endLine": 1,
+        "endChar": 55
+      },
+      "revId": "809b81a4a5c93204c74555ebc2d10c38b8080516",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fabeedc_e9483313",
+        "filename": "recipes-phosphor/hostlogger/phosphor-hostlogger_%.bbappend",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000271
+      },
+      "writtenOn": "2020-12-17T20:39:39Z",
+      "side": 1,
+      "message": "Can we have a single file and define hostname variable and pass the same based on number of hosts. We should definitely think more on this to have much simpler version.",
+      "range": {
+        "startLine": 5,
+        "startChar": 37,
+        "endLine": 5,
+        "endChar": 47
+      },
+      "revId": "809b81a4a5c93204c74555ebc2d10c38b8080516",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
