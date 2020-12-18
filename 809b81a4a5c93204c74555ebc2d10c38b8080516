@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6ea7ace7_aa2a3a61",
+        "filename": "recipes-phosphor/hostlogger/phosphor-hostlogger_%.bbappend",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1000546
+      },
+      "writtenOn": "2020-12-18T15:10:56Z",
+      "side": 1,
+      "message": "done.",
+      "parentUuid": "f34325c4_b5e136ed",
+      "range": {
+        "startLine": 1,
+        "startChar": 45,
+        "endLine": 1,
+        "endChar": 55
+      },
+      "revId": "809b81a4a5c93204c74555ebc2d10c38b8080516",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fabeedc_e9483313",
         "filename": "recipes-phosphor/hostlogger/phosphor-hostlogger_%.bbappend",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-12-17T20:39:39Z",
       "side": 1,
       "message": "Can we have a single file and define hostname variable and pass the same based on number of hosts. We should definitely think more on this to have much simpler version.",
+      "range": {
+        "startLine": 5,
+        "startChar": 37,
+        "endLine": 5,
+        "endChar": 47
+      },
+      "revId": "809b81a4a5c93204c74555ebc2d10c38b8080516",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b8db12cb_e28b9d3d",
+        "filename": "recipes-phosphor/hostlogger/phosphor-hostlogger_%.bbappend",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1000546
+      },
+      "writtenOn": "2020-12-18T15:10:56Z",
+      "side": 1,
+      "message": "The host parameters may be different for different hosts. This application also supports each config file for each instance. Multi host system has multiple instances. So I think good have to separate config files for each instances.",
+      "parentUuid": "4fabeedc_e9483313",
       "range": {
         "startLine": 5,
         "startChar": 37,
