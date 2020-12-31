@@ -16,6 +16,24 @@
       "revId": "36f22faa7572390b0e4c854bd00c3989b4ae0608",
       "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b6419c1_90f5f9ba",
+        "filename": "recipes-phosphor/sensors/phosphor-virtual-sensor/virtual_sensor_config.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1000546
+      },
+      "writtenOn": "2020-12-31T05:14:50Z",
+      "side": 1,
+      "message": "This is Airflow sensor. Unit of this sensor is CFM. Current Virtual phosphor design doesn\u0027t have CFM unit. I used below expression to calculate this. This needs Fan RPM Values. \nI think, probably we need to add support for this type in phosphor-virtual-sensor also.\nPlease provide your thoughts on this.",
+      "parentUuid": "b747f52d_69aa0285",
+      "revId": "36f22faa7572390b0e4c854bd00c3989b4ae0608",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
     }
   ]
 }
