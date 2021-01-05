@@ -1,0 +1,11 @@
+[Unit]
+Description=Phosphor Multi GPIO monitor
+StartLimitIntervalSec=0
+After=hand_switch_position_update.service
+
+[Service]
+Restart=no
+ExecStart=/usr/bin/phosphor-multi-gpio-monitor --config /usr/share/phosphor-gpio-monitor/phosphor-multi-gpio-monitor.json
+
+[Install]
+WantedBy=multi-user.target
