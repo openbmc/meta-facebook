@@ -52,4 +52,6 @@ RDEPENDS_${PN}-system = " \
         ipmitool \
         phosphor-post-code-manager \
         phosphor-host-postd \
+	phosphor-gpio-monitor \
+	virtual/obmc-gpio-monitor \
         "
