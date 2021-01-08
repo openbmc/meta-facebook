@@ -1,0 +1,10 @@
+[Unit]
+Description=Power and Health Status LED Manager
+After=xyz.openbmc_project.LED.GroupManager.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/power_status_led.sh
+
+[Install]
+WantedBy=multi-user.target
