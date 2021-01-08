@@ -14,6 +14,11 @@
             "name": "SELECTOR_BUTTON",
             "pin": "O3",
             "direction": "both"
+        },
+        {
+            "name": "ID_BTN",
+            "pin": "Z7",
+            "direction": "both"
         }
     ]
 }
