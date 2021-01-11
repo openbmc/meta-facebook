@@ -1,0 +1,8 @@
+Ok-To-Test+1: OpenBMC CI <openbmcbump-ci@yahoo.com>
+Code-Review+2: Amithash Prasad <amithash@fb.com>
+Verified+1: Amithash Prasad <amithash@fb.com>
+Submitted-by: Amithash Prasad <amithash@fb.com>
+Submitted-at: Mon, 11 Jan 2021 17:56:34 +0000
+Reviewed-on: https://gerrit.openbmc-project.xyz/c/openbmc/meta-facebook/+/39438
+Project: openbmc/meta-facebook
+Branch: refs/heads/master
