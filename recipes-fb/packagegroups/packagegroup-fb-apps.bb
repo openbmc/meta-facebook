@@ -3,6 +3,7 @@ PR = "r1"
 
 inherit packagegroup
 
+
 PROVIDES = "${PACKAGES}"
 PACKAGES = " \
         ${PN}-chassis \
