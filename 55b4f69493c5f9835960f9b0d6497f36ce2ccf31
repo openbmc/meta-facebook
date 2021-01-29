@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "afc521dc_c6f0bfe9",
+        "filename": "recipes-fb/ipmi/fb-ipmi-oem_git.bb",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-01-29T17:58:04Z",
+      "side": 1,
+      "message": "I\u0027d still prefer this processing is done in the repository, if necessary.  The issue with giving a max is that you still can\u0027t verify cases where one is purposefully missing (ie. \"1 3 5\").",
+      "revId": "55b4f69493c5f9835960f9b0d6497f36ce2ccf31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07d8c39c_353b2b77",
+        "filename": "recipes-fb/ipmi/fb-ipmi-oem_git.bb",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2021-01-29T17:58:04Z",
+      "side": 1,
+      "message": "Just do this for all machines, right?  No need to do anything special for yosemite.",
+      "revId": "55b4f69493c5f9835960f9b0d6497f36ce2ccf31",
+      "serverId": "adbd0a64-1f21-4d83-b585-671fe73cb6e4",
+      "unresolved": true
+    }
+  ]
+}
